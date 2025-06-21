@@ -2,12 +2,8 @@ import { logger } from "../lib/logger";
 
 /**
  * API configuration
- *
- * API requests always use relative paths:
- * - In production: served from same domain
- * - In development: Vite proxies /api/* to Express server
  */
-const API_BASE = "/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
 /**
  * Standard API response wrapper
