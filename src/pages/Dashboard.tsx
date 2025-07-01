@@ -11,12 +11,15 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { CloudRain, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CloudRain, AlertCircle, AlertTriangle } from "lucide-react";
 
 export function Dashboard() {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, revokeAccess } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [updating, setUpdating] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [isRevoking, setIsRevoking] = useState(false);
 
   const toggleWeatherEnabled = async () => {
     if (!user || updating) return;
@@ -35,6 +38,23 @@ export function Dashboard() {
       );
     } finally {
       setUpdating(false);
+    }
+  };
+
+  const handleRevoke = async () => {
+    try {
+      setIsRevoking(true);
+      setError(null);
+
+      await revokeAccess();
+      // The revokeAccess function will handle the redirect
+    } catch (error) {
+      console.error("Failed to revoke access:", error);
+      setError(
+        error instanceof Error ? error.message : "Failed to revoke access",
+      );
+      setIsRevoking(false);
+      setShowConfirmDialog(false);
     }
   };
 
@@ -148,6 +168,58 @@ export function Dashboard() {
                   minute: "2-digit",
                 })}
               </p>
+            </div>
+          </div>
+
+          {/* Danger Zone */}
+          <div className="mt-6 pt-6 border-t">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <h3 className="font-semibold">Danger Zone</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Disconnecting your Strava account will stop weather updates and
+                delete all your data from Rain or Shine.
+              </p>
+
+              {!showConfirmDialog ? (
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => setShowConfirmDialog(true)}
+                >
+                  Disconnect Strava Account
+                </Button>
+              ) : (
+                <div className="space-y-3 p-4 border border-destructive/20 rounded-lg bg-destructive/5">
+                  <p className="text-sm font-medium">
+                    Are you sure you want to disconnect your Strava account?
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    This action cannot be undone. You'll need to reconnect and
+                    reauthorize to use Rain or Shine again.
+                  </p>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={handleRevoke}
+                      disabled={isRevoking}
+                    >
+                      {isRevoking ? "Disconnecting..." : "Yes, Disconnect"}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowConfirmDialog(false)}
+                      disabled={isRevoking}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </CardContent>
