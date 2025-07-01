@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import stravaApiLogo from "../assets/api_logo_cptblWith_strava_horiz_orange.svg";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -51,7 +52,7 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Footer  */}
       <footer className="border-t px-2 mt-auto">
-        <div className="container flex h-16 items-center py-4">
+        <div className="flex h-16 items-center justify-between py-4">
           <p className="text-sm text-muted-foreground">
             Built by{" "}
             <a
@@ -73,6 +74,11 @@ export function Layout({ children }: LayoutProps) {
             </a>
             .
           </p>
+          <img
+            src={stravaApiLogo}
+            alt="Compatible with Strava"
+            className="h-4"
+          />
         </div>
       </footer>
     </div>
