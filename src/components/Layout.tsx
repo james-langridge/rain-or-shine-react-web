@@ -18,7 +18,7 @@ export function Layout({ children }: LayoutProps) {
             {/* Logo/Brand */}
             <div className="flex items-center gap-2">
               <span className="text-2xl">⛅</span>
-              <h1 className="text-xl font-bold">Strava Weather</h1>
+              <h1 className="text-xl font-bold">Rain or Shine</h1>
             </div>
 
             {/* User Menu */}
@@ -64,7 +64,7 @@ export function Layout({ children }: LayoutProps) {
             </a>
             . The source code is available on{" "}
             <a
-              href="https://github.com/james-langridge/strava-weather"
+              href="https://github.com/james-langridge"
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4 hover:text-primary"

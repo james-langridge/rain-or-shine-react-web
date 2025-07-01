@@ -111,7 +111,7 @@ export function AuthSuccess() {
 
         {/* Welcome/Success Message */}
         <h1 className="text-2xl font-bold text-gray-900 mb-4">
-          {isNewUser ? "Welcome to Strava Weather!" : "Successfully Connected!"}
+          {isNewUser ? "Welcome to Rain or Shine!" : "Successfully Connected!"}
         </h1>
 
         <p className="text-gray-600 mb-6">

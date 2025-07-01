@@ -23,7 +23,7 @@ export function Landing() {
         <div className="text-center">
           <div className="mb-8">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-              ⛅ Strava Weather
+              ⛅ Rain or Shine
             </h1>
           </div>
 

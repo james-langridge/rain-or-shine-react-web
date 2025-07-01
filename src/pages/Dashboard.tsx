@@ -115,7 +115,7 @@ export function Dashboard() {
       <Card>
         <CardHeader>
           <CardTitle>Account Information</CardTitle>
-          <CardDescription>Your Strava Weather account details</CardDescription>
+          <CardDescription>Your Rain or Shine account details</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4 text-sm">
