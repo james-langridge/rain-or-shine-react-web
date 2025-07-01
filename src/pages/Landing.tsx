@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext.tsx";
+import stravaConnectButton from "../assets/btn_strava_connect_with_orange.svg";
 
 export function Landing() {
   const { login, error } = useAuth();
@@ -46,7 +47,7 @@ export function Landing() {
             <button
               onClick={handleConnect}
               disabled={isConnecting}
-              className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-orange-300 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+              className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-orange-300 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
             >
               {isConnecting ? (
                 <>
@@ -54,10 +55,11 @@ export function Landing() {
                   <span>Connecting...</span>
                 </>
               ) : (
-                <>
-                  <span>🏃</span>
-                  <span>Connect to Strava</span>
-                </>
+                <img
+                  src={stravaConnectButton}
+                  alt="Connect to Strava"
+                  className="w-full"
+                />
               )}
             </button>
 

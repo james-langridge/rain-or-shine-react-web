@@ -174,7 +174,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
       } else {
         logger.info("User not authenticated, redirecting to Strava OAuth");
-        const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+        const apiBase =
+          import.meta.env.VITE_API_URL || "http://localhost:3001/api";
         window.location.href = `${apiBase}/auth/strava`;
       }
     } catch (error) {
