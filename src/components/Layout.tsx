@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -10,6 +10,24 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const { user, logout } = useAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
@@ -28,24 +46,55 @@ export function Layout({ children }: LayoutProps) {
 
             {/* User Menu */}
             {user && (
-              <div className="flex items-center gap-2 sm:gap-4">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  {user.profileImageUrl && (
-                    <img
-                      src={user.profileImageUrl}
-                      alt={user.displayName}
-                      className="h-8 w-8 rounded-full ring-2 ring-background"
-                    />
-                  )}
-                  <span className="text-sm font-medium hidden sm:inline">
-                    {user.displayName}
-                  </span>
+              <div className="relative" ref={dropdownRef}>
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    {user.profileImageUrl && (
+                      <button
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="h-8 w-8 rounded-full ring-2 ring-background hover:ring-4 transition-all sm:pointer-events-none"
+                      >
+                        <img
+                          src={user.profileImageUrl}
+                          alt={user.displayName}
+                          className="h-full w-full rounded-full object-cover"
+                        />
+                      </button>
+                    )}
+                    <span className="text-sm font-medium hidden sm:inline">
+                      {user.displayName}
+                    </span>
+                  </div>
+
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={logout}
+                    className="hidden sm:flex"
+                  >
+                    Sign Out
+                  </Button>
                 </div>
 
-                <Button variant="ghost" size="sm" onClick={logout}>
-                  <span className="hidden sm:inline">Sign Out</span>
-                  <span className="sm:hidden">Out</span>
-                </Button>
+                {/* Mobile Dropdown */}
+                {isDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50 sm:hidden">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">
+                        {user.displayName}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
