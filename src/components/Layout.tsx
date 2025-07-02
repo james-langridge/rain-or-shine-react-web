@@ -55,7 +55,6 @@ export function Layout({ children }: LayoutProps) {
       <footer className="border-t px-2 mt-auto">
         <div className="flex h-16 items-center justify-between py-4">
           <p className="text-sm text-muted-foreground">
-            Built by{" "}
             <a
               href="https://www.ngridge.com/en"
               target="_blank"
@@ -63,16 +62,8 @@ export function Layout({ children }: LayoutProps) {
               className="font-medium underline underline-offset-4 hover:text-primary"
             >
               James Langridge
-            </a>
-            . The source code is available on{" "}
-            <a
-              href="https://github.com/james-langridge"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4 hover:text-primary"
-            >
-              GitHub
-            </a>
+            </a>{" "}
+            © 2025
             {" · "}
             <Link
               to="/privacy"
