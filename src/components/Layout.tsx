@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import stravaApiLogo from "../assets/api_logo_cptblWith_strava_horiz_orange.svg";
 
 interface LayoutProps {
@@ -72,6 +73,13 @@ export function Layout({ children }: LayoutProps) {
             >
               GitHub
             </a>
+            {" · "}
+            <Link
+              to="/privacy"
+              className="font-medium underline underline-offset-4 hover:text-primary"
+            >
+              Privacy Policy
+            </Link>
             .
           </p>
           <img

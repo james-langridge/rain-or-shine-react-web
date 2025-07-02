@@ -11,6 +11,7 @@ import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { AuthSuccess } from "./pages/AuthSuccess";
 import { AuthError } from "./pages/AuthError";
+import { Privacy } from "./pages/Privacy";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 
@@ -66,6 +67,14 @@ function AppRoutes() {
       />
       <Route path="/auth/success" element={<AuthSuccess />} />
       <Route path="/auth/error" element={<AuthError />} />
+      <Route
+        path="/privacy"
+        element={
+          <Layout>
+            <Privacy />
+          </Layout>
+        }
+      />
 
       {/* Protected routes */}
       <Route
