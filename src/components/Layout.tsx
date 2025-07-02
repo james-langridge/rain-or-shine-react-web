@@ -14,19 +14,22 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       {/* Navigation */}
-      <nav className="px-2 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="px-4 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-16 items-center">
           <div className="flex w-full items-center justify-between">
             {/* Logo/Brand */}
-            <div className="flex items-center gap-2">
+            <Link
+              to="/"
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            >
               <span className="text-2xl">⛅</span>
-              <h1 className="text-xl font-bold">Rain or Shine</h1>
-            </div>
+              <h1 className="text-lg sm:text-xl font-bold">Rain or Shine</h1>
+            </Link>
 
             {/* User Menu */}
             {user && (
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="flex items-center gap-2 sm:gap-3">
                   {user.profileImageUrl && (
                     <img
                       src={user.profileImageUrl}
@@ -34,13 +37,14 @@ export function Layout({ children }: LayoutProps) {
                       className="h-8 w-8 rounded-full ring-2 ring-background"
                     />
                   )}
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-medium hidden sm:inline">
                     {user.displayName}
                   </span>
                 </div>
 
                 <Button variant="ghost" size="sm" onClick={logout}>
-                  Sign Out
+                  <span className="hidden sm:inline">Sign Out</span>
+                  <span className="sm:hidden">Out</span>
                 </Button>
               </div>
             )}
@@ -52,9 +56,9 @@ export function Layout({ children }: LayoutProps) {
       <main className="container py-6 mx-auto px-3 flex-1">{children}</main>
 
       {/* Footer  */}
-      <footer className="border-t px-2 mt-auto">
-        <div className="flex h-16 items-center justify-between py-4">
-          <p className="text-sm text-muted-foreground">
+      <footer className="border-t px-4 mt-auto">
+        <div className="flex flex-col sm:flex-row sm:h-16 items-center sm:justify-between py-4 gap-3 sm:gap-0">
+          <p className="text-sm text-muted-foreground text-center sm:text-left">
             <a
               href="https://www.ngridge.com/en"
               target="_blank"
@@ -76,7 +80,7 @@ export function Layout({ children }: LayoutProps) {
           <img
             src={stravaApiLogo}
             alt="Compatible with Strava"
-            className="h-4"
+            className="h-4 flex-shrink-0"
           />
         </div>
       </footer>
