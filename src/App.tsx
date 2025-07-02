@@ -63,7 +63,15 @@ function AppRoutes() {
       {/* Public routes */}
       <Route
         path="/"
-        element={user ? <Navigate to="/dashboard" replace /> : <Landing />}
+        element={
+          user ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Layout>
+              <Landing />
+            </Layout>
+          )
+        }
       />
       <Route path="/auth/success" element={<AuthSuccess />} />
       <Route path="/auth/error" element={<AuthError />} />
